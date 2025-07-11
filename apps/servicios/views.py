@@ -61,6 +61,10 @@ def crear_servicio(request):
                 return redirect('lista_servicios')
             except CloudinaryError as e:
                 messages.error(request, f"Error al subir la imagen: {e}")
+                return render(request, 'servicios/crear_servicio.html', {'form': form})
+            except Exception as e:
+                messages.error(request, f"Error inesperado: {e}")
+                return render(request, 'servicios/crear_servicio.html', {'form': form})
         else:
             messages.error(request, "Por favor, corrige los errores del formulario.")
     else:
