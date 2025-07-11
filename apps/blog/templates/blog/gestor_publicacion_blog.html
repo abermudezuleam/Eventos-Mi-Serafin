@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Gestor de Publicaciones de Blog{% endblock %}
+
+{% block content %}
+<div class="container mt-5 position-relative">
+    <!-- Mostrar Mensajes -->
+    {% if messages %}
+        <div class="container mt-3">
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <!-- Título Principal -->
+    <h2 class="mb-4 text-center text-primary fw-bold">
+        <i class="fas fa-cogs me-2"></i>Gestor de Publicaciones de Blog
+    </h2>
+
+    <!-- Botón para Crear Publicación -->
+    <div class="mb-4 text-end">
+        <a href="{% url 'crear_publicacion' %}" class="btn btn-success btn-lg" title="Crear una nueva publicación">
+            <i class="fas fa-plus-circle me-2"></i>Crear Publicación
+        </a>
+    </div>
+
+    <!-- Tabla de Publicaciones -->
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center align-middle shadow-sm" aria-label="Tabla de publicaciones del blog">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col"><i class="fas fa-hashtag me-1"></i>ID</th>
+                    <th scope="col"><i class="fas fa-calendar-alt me-1"></i>Fecha de Creación</th>
+                    <th scope="col"><i class="fas fa-edit me-1"></i>Fecha de Edición</th>
+                    <th scope="col"><i class="fas fa-eye me-1"></i>Visualizaciones</th>
+                    <th scope="col"><i class="fas fa-heart me-1"></i>Me Gusta</th>
+                    <th scope="col"><i class="fas fa-user me-1"></i>Autor</th>
+                    <th scope="col"><i class="fas fa-tools me-1"></i>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for publicacion in publicaciones %}
+                <tr>
+                    <td class="fw-bold">{{ publicacion.id }}</td>
+                    <td><i class="fas fa-calendar-check text-success me-1"></i>{{ publicacion.fecha_creacion|date:"d M Y H:i" }}</td>
+                    <td>
+                        {% if publicacion.fecha_edicion %}
+                            <i class="fas fa-calendar-edit text-warning me-1"></i>{{ publicacion.fecha_edicion|date:"d M Y H:i" }}
+                        {% else %}
+                            <span class="text-muted"><i class="fas fa-info-circle me-1"></i>Nunca Editada</span>
+                        {% endif %}
+                    </td>
+                    <td><i class="fas fa-eye text-info me-1"></i>{{ publicacion.visualizaciones }}</td>
+                    <td><i class="fas fa-heart text-danger me-1"></i>{{ publicacion.total_me_gustas }}</td>
+                    <td><i class="fas fa-user-circle text-primary me-1"></i>{{ publicacion.autor }}</td>
+                    <td>
+                        <a href="{% url 'editar_publicacion' publicacion.id %}" class="btn btn-sm btn-warning me-2" title="Editar publicación">
+                            <i class="fas fa-edit me-1"></i>Editar
+                        </a>
+                        <a href="{% url 'eliminar_publicacion' publicacion.id %}" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                            <i class="fas fa-trash-alt me-1"></i>Eliminar
+                        </a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted py-4">
+                        <i class="fas fa-info-circle me-2"></i>No hay publicaciones disponibles.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal de Confirmación de Eliminación -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="deleteModalLabel">
+                    <i class="fas fa-trash-alt me-2"></i>Confirmar Eliminación
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                    ¿Estás seguro de que deseas eliminar esta publicación?
+                </p>
+            </div>
+            <div class="modal-footer">
+                <form id="deleteForm" method="post" action="{% url 'eliminar_publicacion' 0 %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-check-circle me-1"></i>Eliminar
+                    </button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="fas fa-times-circle me-1"></i>Cancelar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

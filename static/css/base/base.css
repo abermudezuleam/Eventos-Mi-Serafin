@@ -1,0 +1,265 @@
+/* Variables de colores para consistencia */
+:root {
+  --color-cerulean: #257180;
+  --color-beige: #fffdf9;
+  --color-orange: #fd8b51;
+  --color-rust: #cb6040;
+}
+
+/* Configuración básica de cuerpo y texto */
+body {
+  background-color: var(--color-beige);
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Estilo de la barra de navegación */
+.navbar {
+  background-color: var(--color-cerulean);
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-bottom: 3px solid var(--color-orange);
+}
+
+/* Tablas */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 15px;
+  background-color: var(--color-cerulean);
+  color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa; /* Color suave al pasar el mouse */
+}
+
+.table td {
+  vertical-align: middle;
+}
+
+/* Botones */
+.btn-warning {
+  background-color: #ffcc00;
+  border: none;
+  color: white;
+}
+
+.btn-warning:hover {
+  background-color: #ffb400;
+}
+
+.btn-danger {
+  background-color: #ff4d4d;
+  border: none;
+  color: white;
+}
+
+.btn-danger:hover {
+  background-color: #ff3333;
+}
+
+/* Footer */
+footer {
+  background-color: var(--color-cerulean);
+  color: var(--color-beige);
+  padding: 20px 0;
+  text-align: center;
+  font-size: 14px;
+}
+
+footer a {
+  color: var(--color-beige);
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos mejorados para el logo y navbar-brand */
+.navbar-brand {
+  height: 150px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto !important;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  padding: 10px !important;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.navbar-brand::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s;
+  border-radius: 12px;
+}
+
+.navbar-brand:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand:hover::before {
+  transform: translateX(100%);
+}
+
+.logo-img {
+  max-height: 130px !important;
+  max-width: 700px !important;
+  width: auto !important;
+  height: auto !important;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.logo-img:hover {
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.4)) brightness(1.1);
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Estilos para el texto del logo cuando no hay imagen */
+.logo-text {
+  color: #fff !important;
+  font-size: 3rem;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease;
+}
+
+.logo-text:hover {
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+  color: var(--color-beige) !important;
+}
+
+.logo-icon {
+  color: #fff;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  transition: all 0.3s ease;
+}
+
+.logo-icon:hover {
+  filter: drop-shadow(3px 3px 6px rgba(0, 0, 0, 0.5));
+  transform: rotate(5deg) scale(1.1);
+}
+
+/* Animación de entrada para el logo */
+@keyframes logoFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.logo-img,
+.logo-text,
+.logo-icon {
+  animation: logoFadeIn 0.8s ease-out;
+}
+
+/* Responsive design para el logo */
+@media (max-width: 768px) {
+  .navbar-brand {
+    height: 100px;
+    padding: 8px;
+  }
+
+  .logo-img {
+    max-height: 85px !important;
+    max-width: 500px !important;
+    padding: 6px;
+  }
+
+  .logo-text {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+    height: 90px;
+  }
+
+  .logo-img {
+    max-height: 75px !important;
+    max-width: 450px !important;
+    padding: 4px;
+  }
+
+  .logo-text {
+    font-size: 1.8rem;
+  }
+}
+
+/* DEBUG: Estilo temporal para verificar que se aplican los cambios */
+/* .navbar-brand {
+  border: 3px solid yellow !important;
+} */
+
+/* Sobrescribir estilos de Bootstrap específicamente */
+.navbar .container .navbar-brand {
+  height: 150px !important;
+  max-height: none !important;
+}
+
+.navbar .container .navbar-brand img {
+  max-height: 130px !important;
+  max-width: 700px !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+.navbar .container .navbar-brand .logo-img {
+  max-height: 130px !important;
+  max-width: 700px !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Estilos adicionales para forzar el tamaño del logo */
+.navbar-brand img,
+.navbar-brand .logo-img,
+img.logo-img {
+  max-height: 130px !important;
+  max-width: 700px !important;
+  width: auto !important;
+  height: auto !important;
+}

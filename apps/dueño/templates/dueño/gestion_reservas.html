@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Gestionar Reservas{% endblock %}
+
+{% block content %}
+
+<!-- ============================
+        Contenedor Principal
+    ============================ -->
+<div class="container py-5">
+
+    <!-- ============================
+            Encabezado Principal
+        ============================ -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-primary">
+            <i class="fas fa-tasks me-2"></i> Gestionar Reservas
+        </h2>
+        <p class="text-muted">Administra, edita y elimina las reservas de tus clientes de manera eficiente.</p>
+    </div>
+
+    <!-- Mensajes de Éxito -->
+    {% if messages %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    {% endif %}
+
+    <!-- ============================
+            Tabla de Reservas
+        ============================ -->
+    <div class="table-responsive">
+        <table class="table table-hover table-striped shadow-sm rounded overflow-hidden">
+            <thead class="bg-gradient text-white text-center" style="background: linear-gradient(135deg, #2575fc, #6a11cb);">
+                <tr>
+                    <th scope="col"><i class="fas fa-hashtag me-1"></i> ID</th>
+                    <th scope="col"><i class="fas fa-user me-1"></i> Cliente</th>
+                    <th scope="col"><i class="fas fa-concierge-bell me-1"></i> Tipo de Reserva</th>
+                    <th scope="col"><i class="fas fa-calendar-alt me-1"></i> Fecha Reserva</th>
+                    <th scope="col"><i class="fas fa-calendar-check me-1"></i> Fecha Finalización</th>
+                    <th scope="col"><i class="fas fa-flag me-1"></i> Estado</th>
+                    <th scope="col"><i class="fas fa-cogs me-1"></i> Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody class="text-center align-middle">
+                {% for reserva in reservas %}
+                    <tr>
+                        <td><i class="fas fa-id-badge me-1 text-primary"></i> {{ reserva.id }}</td>
+                        <td><i class="fas fa-user-circle me-1 text-success"></i> {{ reserva.cliente.nombres }} {{ reserva.cliente.apellidos }}</td>
+                        
+                        <!-- Mostrar Combo o Servicio -->
+                        <td>
+                            {% if reserva.combo %}
+                                <i class="fas fa-gift me-1 text-info"></i> Combo: {{ reserva.combo.nombre }}
+                            {% elif reserva.servicio %}
+                                <i class="fas fa-concierge-bell me-1 text-info"></i> Servicio: {{ reserva.servicio.titulo }}
+                            {% else %}
+                                <span class="text-muted">Sin especificar</span>
+                            {% endif %}
+                        </td>
+                        
+                        <td><i class="fas fa-calendar-alt me-1 text-warning"></i> {{ reserva.fecha_hora_reserva|date:"d/m/Y H:i" }}</td>
+                        <td>
+                            <i class="fas fa-calendar-check me-1 text-primary"></i>
+                            {% if reserva.fecha_fin_reserva %}
+                                {{ reserva.fecha_fin_reserva|date:"d/m/Y H:i" }}
+                            {% else %}
+                                <span class="text-muted">No especificada</span>
+                            {% endif %}
+                        </td>
+                        
+                        <!-- Estado de la Reserva -->
+                        <td>
+                            <span class="badge 
+                                {% if reserva.estado == 'finalizado' %}bg-success
+                                {% elif reserva.estado == 'en_curso' %}bg-info
+                                {% elif reserva.estado == 'pendiente' %}bg-warning text-dark
+                                {% elif reserva.estado == 'cancelado' %}bg-danger
+                                {% else %}bg-secondary{% endif %}">
+                                <i class="fas fa-flag me-1"></i> {{ reserva.estado|capfirst }}
+                            </span>
+                        </td>
+                        
+                        <!-- Acciones para Modificar Reserva -->
+                        <td>
+                            <form method="post" action="{% url 'gestion_reservas' %}">
+                                {% csrf_token %}
+                                <input type="hidden" name="reserva_id" value="{{ reserva.id }}">
+
+                                <!-- Selector de Estado -->
+                                <select name="estado" class="form-select form-select-sm mb-2">
+                                    <option value="en_curso" {% if reserva.estado == 'en_curso' %}selected{% endif %}>En Curso</option>
+                                    <option value="finalizado" {% if reserva.estado == 'finalizado' %}selected{% endif %}>Finalizado</option>
+                                    <option value="pendiente" {% if reserva.estado == 'pendiente' %}selected{% endif %}>Pendiente</option>
+                                    <option value="cancelado" {% if reserva.estado == 'cancelado' %}selected{% endif %}>Cancelado</option>
+                                </select>
+
+                                <!-- Campo de Observación -->
+                                <textarea name="observacion" class="form-control form-control-sm mb-2" placeholder="Añadir observación">{{ reserva.observacion }}</textarea>
+
+                                <!-- Botón para Guardar Cambios -->
+                                <button type="submit" class="btn btn-sm btn-success">
+                                    <i class="fas fa-save me-1"></i> Guardar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">
+                            <i class="fas fa-exclamation-circle me-2 fa-2x text-warning"></i> No hay reservas disponibles.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================
+            Controles de Paginación
+        ============================ -->
+    {% if reservas.has_other_pages %}
+        <nav aria-label="Paginación">
+            <ul class="pagination justify-content-center mt-4">
+                {% if reservas.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ reservas.previous_page_number }}" aria-label="Anterior">
+                            <i class="fas fa-chevron-left"></i>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for num in reservas.paginator.page_range %}
+                    <li class="page-item {% if reservas.number == num %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+
+                {% if reservas.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ reservas.next_page_number }}" aria-label="Siguiente">
+                            <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+
+</div>
+
+{% endblock %}
+
+
+
