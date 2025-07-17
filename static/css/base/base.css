@@ -38,7 +38,7 @@ body {
   padding: 15px;
   background-color: var(--color-cerulean);
   color: white;
-}
+}z
 
 .table tbody tr:hover {
   background-color: #f8f9fa; /* Color suave al pasar el mouse */
