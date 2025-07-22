@@ -4,72 +4,76 @@
 
 {% block content %}
 <div class="container mt-5 position-relative">
-    <!-- Mostrar Mensajes -->
+
     {% if messages %}
-        <div class="container mt-3">
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
+    <div class="container mt-3">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endfor %}
+    </div>
     {% endif %}
 
-    <!-- Título Principal -->
     <h2 class="mb-4 text-center text-primary fw-bold">
-        <i class="fas fa-cogs me-2"></i>Gestor de Publicaciones de Blog
+        <ion-icon name="settings-outline" class="me-2"></ion-icon>Gestor de Publicaciones de Blog
     </h2>
 
-    <!-- Botón para Crear Publicación -->
     <div class="mb-4 text-end">
         <a href="{% url 'crear_publicacion' %}" class="btn btn-success btn-lg" title="Crear una nueva publicación">
-            <i class="fas fa-plus-circle me-2"></i>Crear Publicación
+            <ion-icon name="add-circle-outline" class="me-2"></ion-icon>Crear Publicación
         </a>
     </div>
 
-    <!-- Tabla de Publicaciones -->
     <div class="table-responsive">
-        <table class="table table-hover table-bordered text-center align-middle shadow-sm" aria-label="Tabla de publicaciones del blog">
+        <table class="table table-hover table-bordered text-center align-middle shadow-sm">
             <thead class="table-dark">
                 <tr>
-                    <th scope="col"><i class="fas fa-hashtag me-1"></i>ID</th>
-                    <th scope="col"><i class="fas fa-calendar-alt me-1"></i>Fecha de Creación</th>
-                    <th scope="col"><i class="fas fa-edit me-1"></i>Fecha de Edición</th>
-                    <th scope="col"><i class="fas fa-eye me-1"></i>Visualizaciones</th>
-                    <th scope="col"><i class="fas fa-heart me-1"></i>Me Gusta</th>
-                    <th scope="col"><i class="fas fa-user me-1"></i>Autor</th>
-                    <th scope="col"><i class="fas fa-tools me-1"></i>Acciones</th>
+                    <th><ion-icon name="document-outline"></ion-icon> ID</th>
+                    <th><ion-icon name="book-outline"></ion-icon> Título</th>
+                    <th><ion-icon name="calendar-outline"></ion-icon> Fecha de Creación</th>
+                    <th><ion-icon name="create-outline"></ion-icon> Fecha de Edición</th>
+                    <th><ion-icon name="eye-outline"></ion-icon> Visualizaciones</th>
+                    <th><ion-icon name="heart-outline"></ion-icon> Me Gusta</th>
+                    <th><ion-icon name="person-outline"></ion-icon> Autor</th>
+                    <th><ion-icon name="hammer-outline"></ion-icon> Acciones</th>
                 </tr>
             </thead>
             <tbody>
                 {% for publicacion in publicaciones %}
                 <tr>
                     <td class="fw-bold">{{ publicacion.id }}</td>
-                    <td><i class="fas fa-calendar-check text-success me-1"></i>{{ publicacion.fecha_creacion|date:"d M Y H:i" }}</td>
+                    <td class="text-start">
+                        <ion-icon name="bookmark-outline" class="me-1 text-primary"></ion-icon>
+                        {{ publicacion.titulo }}
+                    </td>
+                    <td>{{ publicacion.fecha_creacion|date:"d M Y H:i" }}</td>
                     <td>
                         {% if publicacion.fecha_edicion %}
-                            <i class="fas fa-calendar-edit text-warning me-1"></i>{{ publicacion.fecha_edicion|date:"d M Y H:i" }}
+                        {{ publicacion.fecha_edicion|date:"d M Y H:i" }}
                         {% else %}
-                            <span class="text-muted"><i class="fas fa-info-circle me-1"></i>Nunca Editada</span>
+                        <span class="text-muted">Nunca Editada</span>
                         {% endif %}
                     </td>
-                    <td><i class="fas fa-eye text-info me-1"></i>{{ publicacion.visualizaciones }}</td>
-                    <td><i class="fas fa-heart text-danger me-1"></i>{{ publicacion.total_me_gustas }}</td>
-                    <td><i class="fas fa-user-circle text-primary me-1"></i>{{ publicacion.autor }}</td>
+                    <td>{{ publicacion.visualizaciones }}</td>
+                    <td>{{ publicacion.me_gustas.count }}</td>
+                    <td>{{ publicacion.autor }}</td>
                     <td>
-                        <a href="{% url 'editar_publicacion' publicacion.id %}" class="btn btn-sm btn-warning me-2" title="Editar publicación">
-                            <i class="fas fa-edit me-1"></i>Editar
+                        <a href="{% url 'editar_publicacion' publicacion.id %}" class="btn btn-sm btn-warning me-2">
+                            <ion-icon name="create-outline" class="me-1"></ion-icon>Editar
                         </a>
-                        <a href="{% url 'eliminar_publicacion' publicacion.id %}" class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                            <i class="fas fa-trash-alt me-1"></i>Eliminar
-                        </a>
+                        <button class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal"
+                            data-id="{{ publicacion.id }}">
+                            <ion-icon name="trash-outline" class="me-1"></ion-icon>Eliminar
+                        </button>
                     </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="7" class="text-center text-muted py-4">
-                        <i class="fas fa-info-circle me-2"></i>No hay publicaciones disponibles.
+                    <td colspan="8" class="text-center text-muted py-4">
+                        <ion-icon name="information-circle-outline" class="me-2"></ion-icon>No hay publicaciones
+                        disponibles.
                     </td>
                 </tr>
                 {% endfor %}
@@ -84,30 +88,43 @@
         <div class="modal-content">
             <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="deleteModalLabel">
-                    <i class="fas fa-trash-alt me-2"></i>Confirmar Eliminación
+                    <ion-icon name="trash-outline" class="me-2"></ion-icon>Confirmar Eliminación
                 </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
             <div class="modal-body">
-                <p>
-                    <i class="fas fa-exclamation-triangle text-warning me-2"></i>
-                    ¿Estás seguro de que deseas eliminar esta publicación?
-                </p>
+                ¿Estás seguro de que deseas eliminar esta publicación?
             </div>
             <div class="modal-footer">
-                <form id="deleteForm" method="post" action="{% url 'eliminar_publicacion' 0 %}">
+                <form id="deleteForm" method="post">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-check-circle me-1"></i>Eliminar
+                        <ion-icon name="checkmark-circle-outline" class="me-1"></ion-icon>Eliminar
                     </button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                        <i class="fas fa-times-circle me-1"></i>Cancelar
+                        <ion-icon name="close-circle-outline" class="me-1"></ion-icon>Cancelar
                     </button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script para asignar la URL al formulario del modal -->
+<script>
+    const deleteModal = document.getElementById('deleteModal');
+    deleteModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const publicacionId = button.getAttribute('data-id');
+        const form = document.getElementById('deleteForm');
+        const url = "{% url 'eliminar_publicacion' 0 %}".replace('0', publicacionId);
+        form.action = url;
+    });
+</script>
+
+<!-- Ionicons CDN -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 {% endblock %}
 
 
