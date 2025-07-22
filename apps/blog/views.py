@@ -164,12 +164,17 @@ def eliminar_publicacion(request, pk):
     '''
     publicacion = get_object_or_404(Publicacion, pk=pk)
 
+    if request.method != 'POST':
+        return HttpResponseNotAllowed(['POST'])
+
     if request.user.rol != 'dueño':
-        messages.error(request, "No tienes permiso para eliminar esta publicación.")
+        messages.error(
+            request, "No tienes permiso para eliminar esta publicación.")
         return redirect('gestor_publicaciones')
 
     publicacion.delete()
-    messages.success(request, "La publicación ha sido eliminada correctamente.")
+    messages.success(
+        request, "La publicación ha sido eliminada correctamente.")
     return redirect('gestor_publicaciones')
 
 
