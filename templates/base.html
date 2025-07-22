@@ -77,16 +77,16 @@
             <i class="fas fa-map-marker-alt"></i> Dirección: {{ negocio.direccion_principal }}
             {% if negocio.direccion_secundaria %} - {{ negocio.direccion_secundaria }}{% endif %}
         </p>
-        <p><strong><i class="fas fa-phone-alt"></i> 
-            <a href="tel:{{ negocio.telefono }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.telefono }}
-            </a>
-        </strong></p>
-        <p><strong><i class="fas fa-envelope"></i> 
-            <a href="mailto:{{ negocio.correo }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.correo }}
-            </a>
-        </strong></p>
+        <p><strong><i class="fas fa-phone-alt"></i>
+                <a href="tel:{{ negocio.telefono }}" style="color: var(--color-beige); text-decoration: none;">
+                    {{ negocio.telefono }}
+                </a>
+            </strong></p>
+        <p><strong><i class="fas fa-envelope"></i>
+                <a href="mailto:{{ negocio.correo }}" style="color: var(--color-beige); text-decoration: none;">
+                    {{ negocio.correo }}
+                </a>
+            </strong></p>
 
         <div class="social-icons mt-3">
             {% if negocio.redes_sociales.facebook %}
@@ -109,253 +109,34 @@
                 <i class="fab fa-linkedin"></i>
             </a>
             {% endif %}
-        </div>
-        {% else %}
-        <p><i class="fas fa-exclamation-triangle"></i> Información del negocio no disponible.</p>
-        {% endif %}
+            </div>
+            {% else %}
+            <p><i class="fas fa-exclamation-triangle"></i> Información del negocio no disponible.</p>
+            {% endif %}
+<!-- Logo de ULEAM -->
+<div class="uleam-logo-container p-3 text-center text-md-start"
+    style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 500px;">
 
-        <!-- Logo de ULEAM -->
-        <div class="uleam-logo-container p-3 text-center text-md-start"
-            style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 500px;">
+    <img src="https://imaginariosyrepresentaciones.com/wp-content/uploads/2024/03/2166d-logo_uleam_2017_horizontal.png"
+        alt="Universidad Laica Eloy Alfaro de Manabí" class="uleam-logo img-fluid mb-2 d-block mx-auto mx-md-0"
+        style="max-height: 50px; filter: brightness(0) invert(1); opacity: 0.9;">
 
-            <img src="https://imaginariosyrepresentaciones.com/wp-content/uploads/2024/03/2166d-logo_uleam_2017_horizontal.png"
-                alt="Universidad Laica Eloy Alfaro de Manabí"
-                class="uleam-logo img-fluid mb-2 d-block mx-auto mx-md-0"
-                style="max-height: 50px; filter: brightness(0) invert(1); opacity: 0.9;">
-
-            <p class="mb-0" style="font-size: 0.75rem; opacity: 0.8; line-height: 1.3;">
-                <i class="fas fa-graduation-cap me-1"></i>Universidad Laica Eloy Alfaro de Manabí
-            </p>
-        </div>
+    <p class="mb-0" style="font-size: 0.75rem; opacity: 0.8; line-height: 1.3;">
+        <i class="fas fa-graduation-cap me-1"></i>Universidad Laica Eloy Alfaro de Manabí
+    </p>
+</div>
     </div>
-
-    <style>
-        @media (min-width: 768px) {
-            .uleam-logo-container {
-                position: absolute;
-                top: 50%;
-                right: 70px;
-                transform: translateY(-50%);
-                text-align: left;
-            }
+<style>
+    @media (min-width: 768px) {
+        .uleam-logo-container {
+            position: absolute;
+            top: 50%;
+            right: 70px;
+            transform: translateY(-50%);
+            text-align: left;
         }
-    </style>
-</footer>
-<footer class="mt-auto" style="background-color: var(--color-cerulean); color: var(--color-beige); position: relative;">
-    <div class="container text-center py-4 position-relative">
-        {% if negocio %}
-        <p><strong><i class="fas fa-building"></i> {{ negocio.nombre }}</strong></p>
-        <p>
-            <i class="fas fa-map-marker-alt"></i> Dirección: {{ negocio.direccion_principal }}
-            {% if negocio.direccion_secundaria %} - {{ negocio.direccion_secundaria }}{% endif %}
-        </p>
-        <p><strong><i class="fas fa-phone-alt"></i> 
-            <a href="tel:{{ negocio.telefono }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.telefono }}
-            </a>
-        </strong></p>
-        <p><strong><i class="fas fa-envelope"></i> 
-            <a href="mailto:{{ negocio.correo }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.correo }}
-            </a>
-        </strong></p>
-
-        <div class="social-icons mt-3">
-            {% if negocio.redes_sociales.facebook %}
-            <a href="{{ negocio.redes_sociales.facebook }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.instagram %}
-            <a href="{{ negocio.redes_sociales.instagram }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-instagram"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.twitter %}
-            <a href="{{ negocio.redes_sociales.twitter }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-twitter"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.linkedin %}
-            <a href="{{ negocio.redes_sociales.linkedin }}" target="_blank" style="font-size: 1.8rem;">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            {% endif %}
-        </div>
-        {% else %}
-        <p><i class="fas fa-exclamation-triangle"></i> Información del negocio no disponible.</p>
-        {% endif %}
-
-        <!-- Logo de ULEAM -->
-        <div class="uleam-logo-container p-3 text-center text-md-start"
-            style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 500px;">
-
-            <img src="https://imaginariosyrepresentaciones.com/wp-content/uploads/2024/03/2166d-logo_uleam_2017_horizontal.png"
-                alt="Universidad Laica Eloy Alfaro de Manabí"
-                class="uleam-logo img-fluid mb-2 d-block mx-auto mx-md-0"
-                style="max-height: 50px; filter: brightness(0) invert(1); opacity: 0.9;">
-
-            <p class="mb-0" style="font-size: 0.75rem; opacity: 0.8; line-height: 1.3;">
-                <i class="fas fa-graduation-cap me-1"></i>Universidad Laica Eloy Alfaro de Manabí
-            </p>
-        </div>
-    </div>
-
-    <style>
-        @media (min-width: 768px) {
-            .uleam-logo-container {
-                position: absolute;
-                top: 50%;
-                right: 70px;
-                transform: translateY(-50%);
-                text-align: left;
-            }
-        }
-    </style>
-</footer>
-<footer class="mt-auto" style="background-color: var(--color-cerulean); color: var(--color-beige); position: relative;">
-    <div class="container text-center py-4 position-relative">
-        {% if negocio %}
-        <p><strong><i class="fas fa-building"></i> {{ negocio.nombre }}</strong></p>
-        <p>
-            <i class="fas fa-map-marker-alt"></i> Dirección: {{ negocio.direccion_principal }}
-            {% if negocio.direccion_secundaria %} - {{ negocio.direccion_secundaria }}{% endif %}
-        </p>
-        <p><strong><i class="fas fa-phone-alt"></i> 
-            <a href="tel:{{ negocio.telefono }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.telefono }}
-            </a>
-        </strong></p>
-        <p><strong><i class="fas fa-envelope"></i> 
-            <a href="mailto:{{ negocio.correo }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.correo }}
-            </a>
-        </strong></p>
-
-        <div class="social-icons mt-3">
-            {% if negocio.redes_sociales.facebook %}
-            <a href="{{ negocio.redes_sociales.facebook }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.instagram %}
-            <a href="{{ negocio.redes_sociales.instagram }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-instagram"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.twitter %}
-            <a href="{{ negocio.redes_sociales.twitter }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-twitter"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.linkedin %}
-            <a href="{{ negocio.redes_sociales.linkedin }}" target="_blank" style="font-size: 1.8rem;">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            {% endif %}
-        </div>
-        {% else %}
-        <p><i class="fas fa-exclamation-triangle"></i> Información del negocio no disponible.</p>
-        {% endif %}
-
-        <!-- Logo de ULEAM -->
-        <div class="uleam-logo-container p-3 text-center text-md-start"
-            style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 500px;">
-
-            <img src="https://imaginariosyrepresentaciones.com/wp-content/uploads/2024/03/2166d-logo_uleam_2017_horizontal.png"
-                alt="Universidad Laica Eloy Alfaro de Manabí"
-                class="uleam-logo img-fluid mb-2 d-block mx-auto mx-md-0"
-                style="max-height: 50px; filter: brightness(0) invert(1); opacity: 0.9;">
-
-            <p class="mb-0" style="font-size: 0.75rem; opacity: 0.8; line-height: 1.3;">
-                <i class="fas fa-graduation-cap me-1"></i>Universidad Laica Eloy Alfaro de Manabí
-            </p>
-        </div>
-    </div>
-
-    <style>
-        @media (min-width: 768px) {
-            .uleam-logo-container {
-                position: absolute;
-                top: 50%;
-                right: 70px;
-                transform: translateY(-50%);
-                text-align: left;
-            }
-        }
-    </style>
-</footer>
-<footer class="mt-auto" style="background-color: var(--color-cerulean); color: var(--color-beige); position: relative;">
-    <div class="container text-center py-4 position-relative">
-        {% if negocio %}
-        <p><strong><i class="fas fa-building"></i> {{ negocio.nombre }}</strong></p>
-        <p>
-            <i class="fas fa-map-marker-alt"></i> Dirección: {{ negocio.direccion_principal }}
-            {% if negocio.direccion_secundaria %} - {{ negocio.direccion_secundaria }}{% endif %}
-        </p>
-        <p><strong><i class="fas fa-phone-alt"></i> 
-            <a href="tel:{{ negocio.telefono }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.telefono }}
-            </a>
-        </strong></p>
-        <p><strong><i class="fas fa-envelope"></i> 
-            <a href="mailto:{{ negocio.correo }}" style="color: var(--color-beige); text-decoration: none;">
-                {{ negocio.correo }}
-            </a>
-        </strong></p>
-
-        <div class="social-icons mt-3">
-            {% if negocio.redes_sociales.facebook %}
-            <a href="{{ negocio.redes_sociales.facebook }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.instagram %}
-            <a href="{{ negocio.redes_sociales.instagram }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-instagram"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.twitter %}
-            <a href="{{ negocio.redes_sociales.twitter }}" target="_blank" class="me-3" style="font-size: 1.8rem;">
-                <i class="fab fa-twitter"></i>
-            </a>
-            {% endif %}
-            {% if negocio.redes_sociales.linkedin %}
-            <a href="{{ negocio.redes_sociales.linkedin }}" target="_blank" style="font-size: 1.8rem;">
-                <i class="fab fa-linkedin"></i>
-            </a>
-            {% endif %}
-        </div>
-        {% else %}
-        <p><i class="fas fa-exclamation-triangle"></i> Información del negocio no disponible.</p>
-        {% endif %}
-
-        <!-- Logo de ULEAM -->
-        <div class="uleam-logo-container p-3 text-center text-md-start"
-            style="background: rgba(255, 255, 255, 0.1); border-radius: 10px; max-width: 500px;">
-
-            <img src="https://imaginariosyrepresentaciones.com/wp-content/uploads/2024/03/2166d-logo_uleam_2017_horizontal.png"
-                alt="Universidad Laica Eloy Alfaro de Manabí"
-                class="uleam-logo img-fluid mb-2 d-block mx-auto mx-md-0"
-                style="max-height: 50px; filter: brightness(0) invert(1); opacity: 0.9;">
-
-            <p class="mb-0" style="font-size: 0.75rem; opacity: 0.8; line-height: 1.3;">
-                <i class="fas fa-graduation-cap me-1"></i>Universidad Laica Eloy Alfaro de Manabí
-            </p>
-        </div>
-    </div>
-
-    <style>
-        @media (min-width: 768px) {
-            .uleam-logo-container {
-                position: absolute;
-                top: 50%;
-                right: 70px;
-                transform: translateY(-50%);
-                text-align: left;
-            }
-        }
-    </style>
+    }
+</style>
 </footer>
 
 
